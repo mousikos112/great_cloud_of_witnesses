@@ -98,7 +98,62 @@ function getAnthemsByMulti() {
     $type_id = filter_input(INPUT_GET, 'type_id', FILTER_VALIDATE_INT);
 
     // Get anthems for selected search parameters.
-    $queryAnthems = 'SELECT DISTINCT * FROM anthems
+    $queryAnthems = 'SELECT DISTINCT
+                        anthems.anthemID,
+                        anthems.title,
+                        anthems.typeID,
+                        anthems.composerID,
+                        anthems.voicingID,
+                        anthems.publisherID,
+                        anthems.instrument,
+                        anthems.solos,
+                        anthems.languageID,
+                        anthems.textID,
+                        anthems.scoreLink,
+                        anthems.difficulty,
+                        anthems.duration,
+                        anthems.recordingLink,
+                        anthems.notes,
+
+                        anthems_by_season.anthemID,
+                        anthems_by_season.seasonID,
+
+                        composers.composerID,
+                        composers.firstName,
+                        composers.lastName,
+                        composers.datebirth,
+                        composers.datedeath,
+                        composers.country,
+                        composers.genderID,
+                        composers.raceID,
+                        composers.website,
+                        composers.queer,
+                        composers.disabled,
+                        composers.notes,
+
+                        genders.genderID,
+                        genders.gender,
+
+                        languages.languageID,
+                        languages.languagename,
+
+                        publisher.publisherID,
+                        publisher.publishername,
+                        publisher.website,
+
+                        race.raceID,
+                        race.race,
+
+                        seasons.seasonID,
+                        seasons.liturgicalseason,
+
+                        types.typeID,
+                        types.anthemtype,
+
+                        voicing.voicingID,
+                        voicing.voicing
+                    
+                    FROM anthems
                     JOIN composers ON anthems.composerID = composers.composerID
                     LEFT JOIN composers_by_race ON composers.raceID = composers_by_race.raceID
                     LEFT JOIN genders ON composers.genderID = genders.genderID
