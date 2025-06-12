@@ -6,7 +6,7 @@ require('database/gcw_database.php');
 function getComposers() {
     // Get all composers and composer data.
     global $db;
-    $queryComposers = 'SELECT * FROM `composers`
+    $queryComposers = 'SELECT * FROM composers
                     LEFT JOIN composers_by_race ON composers.raceID = composers_by_race.raceID
                     LEFT JOIN genders ON composers.genderID = genders.genderID
                     LEFT JOIN race ON composers_by_race.raceID = race.raceID
