@@ -88,7 +88,7 @@ function getTypes() {
 function getAnthemsByMulti() {
     // Filter the input.
     global $db;
-    $composer = filter_input(INPUT_GET, 'composer', FILTER_SANITIZE_STRING);
+    $composer = filter_input(INPUT_GET, 'composer');
     $race_id = filter_input(INPUT_GET, 'race_id', FILTER_VALIDATE_INT);
     $gender_id = filter_input(INPUT_GET, 'gender_id', FILTER_VALIDATE_INT);
     $queer = isset($_GET['queer']) ? 1 : 0;
