@@ -1,7 +1,7 @@
 <?php
-    $dsn = 'mysql:host=localhost;dbname=great_cloud_of_witnesses';
-    $username = 'gcw_admin';
-    $password = 'pa55word';
+    $dsn = 'pgsql:dbname=gcw;host=/var/run/postgresql'; 
+    $username = 'gcw';
+    $password = ''; // Optional, depends on pg_hba.conf
 
     try {
         $db = new PDO($dsn, $username, $password);
@@ -10,5 +10,4 @@
         include('gcw_database_error.php');
         exit();
     }
-    
 ?>
