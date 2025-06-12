@@ -24,7 +24,7 @@ function getGenders() {
     $queryGenders = 'SELECT genders.gender, genders.genderID, COUNT(composers.composerID) AS composers_in_gender
                 FROM genders
                 LEFT JOIN composers ON composers.genderID = genders.genderID
-                GROUP BY genders.genderID;';
+                GROUP BY genders.genderID, genders.gender';
     $statement = $db->prepare($queryGenders);
     $statement->execute();
     $genders = $statement->fetchAll();
@@ -38,7 +38,7 @@ function getRaces() {
                 FROM race
                 LEFT JOIN composers ON composers.raceID = race.raceID
                 LEFT JOIN composers_by_race ON composers.raceID = composers_by_race.raceID
-                GROUP BY race.raceID;';
+                GROUP BY race.raceID, race.race';
     $statement = $db->prepare($queryRaces);
     $statement->execute();
     $races = $statement->fetchAll();
