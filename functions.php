@@ -65,7 +65,6 @@ function getSeasons() {
     global $db;
     $queryAllSeasons = 'SELECT DISTINCT seasons.seasonID, seasons.liturgicalSeason
                         FROM seasons
-                        INNER JOIN anthems ON seasons.seasonID = anthems.seasonID
                         ORDER BY seasons.seasonID';
     $statement = $db->prepare($queryAllSeasons);
     $statement->execute();
@@ -77,8 +76,9 @@ function getSeasons() {
 function getTypes() {
     // Get all anthem types.
     global $db;
-    $queryAllTypes = 'SELECT * FROM types
-                        ORDER BY typeID';
+    $queryAllTypes = 'SELECT DISTINCT types.typeID, types.anthemtype
+                      FROM types
+                      ORDER BY typeID';
     $statement = $db->prepare($queryAllTypes);
     $statement->execute();
     $types = $statement->fetchAll();
