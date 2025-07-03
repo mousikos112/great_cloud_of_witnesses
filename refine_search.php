@@ -131,6 +131,7 @@
         echo '<label class="column1" for="type_id">Select a type of piece:</label>';
         echo '<select name="type_id" id="type_id">';
         foreach ($types as $type) {
+            print($type);
             echo '<option value="' . $type['typeID'] . '">' . 
                 htmlspecialchars($type['anthemType']) . '</option>';
         }
