@@ -65,10 +65,10 @@ if (isset($_GET['composer']) || isset($_GET['race_id']) || isset($_GET['gender_i
 // Logic to omit any duplicate results which may arise from multiple seasonIDs, etc.
 $previous_anthemID = 0;
 foreach ($anthems as $anthem) : 
-    if ($previous_anthemID == $anthem['anthemID']) {
+    if ($previous_anthemID == $anthem['anthemid']) {
         continue;
     } else {
-        $previous_anthemID = $anthem['anthemID'];
+        $previous_anthemID = $anthem['anthemid'];
     }
 ?>
     <details>
