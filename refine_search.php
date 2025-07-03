@@ -130,9 +130,6 @@
         echo '<form action="results.php" method="get">';
         echo '<label class="column1" for="type_id">Select a type of piece:</label>';
         echo '<select name="type_id" id="type_id">';
-            echo '<pre>';
-            print_r($types[0]);
-            echo '</pre>';
         foreach ($types as $type) {
             echo '<option value="' . $type['typeID'] . '">' . 
                 htmlspecialchars($type['anthemtype']) . '</option>';
@@ -187,7 +184,7 @@
         echo '<select name="season_id" id="season_id">';
         foreach ($seasons as $season) {
             echo '<option value="' . $season['seasonID'] . '">' . 
-                htmlspecialchars($season['liturgicalSeason']) . '</option>';
+                htmlspecialchars($season['liturgicalseason']) . '</option>';
         }
         echo '</select>';
 
