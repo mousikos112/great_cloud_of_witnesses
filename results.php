@@ -82,7 +82,7 @@ foreach ($anthems as $anthem) :
             <ul>
             <?php
                 // Include an if statement here - if organ solo, it should say that first.
-                if ($anthem['typeID'] == 6) {
+                if ($anthem['typeid'] == 6) {
                     echo '<i>Solo Organ</i>';
                 }
                 if (!empty($anthem['voicing'])) {
@@ -115,11 +115,11 @@ foreach ($anthems as $anthem) :
                     echo '<li>Approximate duration: ' . htmlspecialchars($anthem['duration']) . '</li>';
                 }
                 // Links to a recording and a score if available.
-                if (!empty($anthem['recordingLink'])) {
-                    echo '<li><a href="' . htmlspecialchars($anthem['recordingLink']) . '" target="_blank">Recording link</a></li>';
+                if (!empty($anthem['recordinglink'])) {
+                    echo '<li><a href="' . htmlspecialchars($anthem['recordinglink']) . '" target="_blank">Recording link</a></li>';
                 }
-                if (!empty($anthem['scoreLink'])) {
-                    echo '<li><a href="' . htmlspecialchars($anthem['scoreLink']) . '" target="_blank">Score link</a></li>';
+                if (!empty($anthem['scorelink'])) {
+                    echo '<li><a href="' . htmlspecialchars($anthem['scorelink']) . '" target="_blank">Score link</a></li>';
                 }
             ?>
             </ul>
