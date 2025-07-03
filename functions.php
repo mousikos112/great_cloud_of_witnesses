@@ -293,7 +293,7 @@ function displaySeasonFilters() {
     echo '<option value="">-- Select season: --</option>';
     foreach ($seasons as $season) {
         echo '<option value="' . $season['seasonID'] . '">' . 
-            htmlspecialchars($season['liturgicalSeason']) . '</option>';
+            htmlspecialchars($season['liturgicalseason']) . '</option>';
     }
     echo '</select></div>';
 }
@@ -306,7 +306,7 @@ function displayTypeFilters() {
     echo '<option value="">-- Select type: --</option>';
     foreach ($types as $type) {
         echo '<option value="' . $type['typeID'] . '">' . 
-            htmlspecialchars($type['anthemType']) . '</option>';
+            htmlspecialchars($type['anthemtype']) . '</option>';
     }
     echo '</select></div>';
 }
