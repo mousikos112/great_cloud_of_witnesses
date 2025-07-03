@@ -65,6 +65,7 @@ function getSeasons() {
     global $db;
     $queryAllSeasons = 'SELECT DISTINCT seasons.seasonID, seasons.liturgicalSeason
                         FROM seasons
+                        INNER JOIN anthems ON seasons.seasonID = anthems.seasonID
                         ORDER BY seasons.seasonID';
     $statement = $db->prepare($queryAllSeasons);
     $statement->execute();
@@ -155,13 +156,14 @@ function getAnthemsByMulti() {
                     
                     FROM anthems
                     JOIN composers ON anthems.composerID = composers.composerID
+                    LEFT JOIN anthems_by_season ON anthems.anthemID = anthems_by_season.anthemID
                     LEFT JOIN composers_by_race ON composers.raceID = composers_by_race.raceID
                     LEFT JOIN genders ON composers.genderID = genders.genderID
+                    LEFT JOIN languages ON anthems.languageID = languages.languageID
+                    LEFT JOIN publisher ON anthems.publisherID = publisher.publisherID
                     LEFT JOIN race ON composers_by_race.raceID = race.raceID
-                    LEFT JOIN voicing on anthems.voicingID = voicing.voicingID
-                    LEFT JOIN languages on anthems.languageID = languages.languageID
-                    LEFT JOIN anthems_by_season on anthems.anthemID = anthems_by_season.anthemID
-                    LEFT JOIN types on anthems.typeID = types.typeID
+                    LEFT JOIN types ON anthems.typeID = types.typeID
+                    LEFT JOIN voicing ON anthems.voicingID = voicing.voicingID
                     WHERE 1=1';
 
     if (!empty($composer)) {
