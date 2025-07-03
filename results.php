@@ -74,8 +74,8 @@ foreach ($anthems as $anthem) :
     <details>
         <summary>
             <!-- Here are composer and title of the piece. -->
-            <?php echo htmlspecialchars($anthem['firstName']) . " " . 
-                htmlspecialchars($anthem['lastName']);?> - 
+            <?php echo htmlspecialchars($anthem['firstname']) . " " . 
+                htmlspecialchars($anthem['lastname']);?> - 
             <?php echo $anthem['title'];?>
         </summary>
             <!-- Here is all additional information available about the piece. -->
