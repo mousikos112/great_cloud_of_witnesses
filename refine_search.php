@@ -60,7 +60,7 @@
         echo '<option>Select race</option>';
         foreach ($races as $race) {
             if ($race['composers_in_race'] > 0) {
-            echo '<option value="' . $race['raceID'] . '">' . 
+            echo '<option value="' . $race['raceid'] . '">' . 
                 htmlspecialchars($race['race']) . '</option>';
             }
         }
@@ -72,7 +72,7 @@
         echo '<option>Select gender</option>';
         foreach ($genders as $gender) {
             if ($gender['composers_in_gender'] > 0) {
-            echo '<option value="' . $gender['genderID'] . '">' . 
+            echo '<option value="' . $gender['genderid'] . '">' . 
                 htmlspecialchars($gender['gender']) . '</option>';
             }
         }
@@ -131,7 +131,7 @@
         echo '<label class="column1" for="type_id">Select a type of piece:</label>';
         echo '<select name="type_id" id="type_id">';
         foreach ($types as $type) {
-            echo '<option value="' . $type['typeID'] . '">' . 
+            echo '<option value="' . $type['typeid'] . '">' . 
                 htmlspecialchars($type['anthemtype']) . '</option>';
         }
         echo '</select>';
@@ -183,7 +183,7 @@
         echo '<label class="column1" for="season_id">Select a liturgical season:</label>';
         echo '<select name="season_id" id="season_id">';
         foreach ($seasons as $season) {
-            echo '<option value="' . $season['seasonID'] . '">' . 
+            echo '<option value="' . $season['seasonid'] . '">' . 
                 htmlspecialchars($season['liturgicalseason']) . '</option>';
         }
         echo '</select>';
@@ -235,7 +235,7 @@
         echo '<label class="column1" for="voicing_id">Select a voicing:</label>';
         echo '<select name="voicing_id" id="voicing_id">';
         foreach ($voicings as $voicing) {
-            echo '<option value="' . $voicing['voicingID'] . '">' . 
+            echo '<option value="' . $voicing['voicingid'] . '">' . 
                 htmlspecialchars($voicing['voicing']) . '</option>';
         }
         echo '</select>';
