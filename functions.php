@@ -62,7 +62,7 @@ function getSeasons() {
 function getTypes() {
     // Get all anthem types.
     global $db;
-    $queryAllTypes = 'SELECT DISTINCT types.typeID, types.anthemtype
+    $queryAllTypes = 'SELECT DISTINCT types.typeID, types.anthemType
                       FROM types
                       INNER JOIN anthems on types.typeID = anthems.typeID
                       ORDER BY types.typeID';
