@@ -78,6 +78,7 @@ function getTypes() {
     global $db;
     $queryAllTypes = 'SELECT DISTINCT types.typeID, types.anthemtype
                       FROM types
+                      INNER JOIN anthems on types.typeID = anthems.typeID
                       ORDER BY typeID';
     $statement = $db->prepare($queryAllTypes);
     $statement->execute();
@@ -162,6 +163,7 @@ function getAnthemsByMulti() {
                     LEFT JOIN languages ON anthems.languageID = languages.languageID
                     LEFT JOIN publisher ON anthems.publisherID = publisher.publisherID
                     LEFT JOIN race ON composers_by_race.raceID = race.raceID
+                    LEFT JOIN seasons on anthems_by_season.seasonID = seasons.seasonID
                     LEFT JOIN types ON anthems.typeID = types.typeID
                     LEFT JOIN voicing ON anthems.voicingID = voicing.voicingID
                     WHERE 1=1';
