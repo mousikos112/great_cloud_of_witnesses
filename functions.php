@@ -46,20 +46,6 @@ function getRaces() {
     return $races;
 }
 
-function getVoicings() {
-    // Get all anthem voicings.
-    global $db;
-    $queryAllVoicings = 'SELECT DISTINCT voicing.voicingID, voicing.voicing
-                         FROM voicing
-                         INNER JOIN anthems ON voicing.voicingID = anthems.voicingID
-                         ORDER BY voicing.voicingID';
-    $statement1 = $db->prepare($queryAllVoicings);
-    $statement1->execute();
-    $voicings = $statement1->fetchAll();
-    $statement1->closeCursor();
-    return $voicings;
-}
-
 function getSeasons() {
     // Get all seasons.
     global $db;
@@ -79,12 +65,26 @@ function getTypes() {
     $queryAllTypes = 'SELECT DISTINCT types.typeID, types.anthemtype
                       FROM types
                       INNER JOIN anthems on types.typeID = anthems.typeID
-                      ORDER BY typeID';
+                      ORDER BY types.typeID';
     $statement = $db->prepare($queryAllTypes);
     $statement->execute();
     $types = $statement->fetchAll();
     $statement->closeCursor();
     return $types;
+}
+
+function getVoicings() {
+    // Get all anthem voicings.
+    global $db;
+    $queryAllVoicings = 'SELECT DISTINCT voicing.voicingID, voicing.voicing
+                         FROM voicing
+                         INNER JOIN anthems ON voicing.voicingID = anthems.voicingID
+                         ORDER BY voicing.voicingID';
+    $statement1 = $db->prepare($queryAllVoicings);
+    $statement1->execute();
+    $voicings = $statement1->fetchAll();
+    $statement1->closeCursor();
+    return $voicings;
 }
 
 function getAnthemsByMulti() {
