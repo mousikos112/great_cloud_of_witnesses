@@ -7,9 +7,9 @@ function getComposers() {
     // Get all composers and composer data.
     global $db;
     $queryComposers = 'SELECT * FROM composers
-                    LEFT JOIN composers_by_race ON composers.raceID = composers_by_race.raceID
-                    LEFT JOIN genders ON composers.genderID = genders.genderID
-                    LEFT JOIN race ON composers_by_race.raceID = race.raceID
+                    LEFT JOIN composers_by_race ON composers.raceid = composers_by_race.raceid
+                    LEFT JOIN genders ON composers.genderID = genders.genderid
+                    LEFT JOIN race ON composers_by_race.raceid = race.raceid
                     ORDER BY lastName';
     $statement1 = $db->prepare($queryComposers);
     $statement1->execute();
@@ -21,10 +21,10 @@ function getComposers() {
 function getGenders() {
     // Get all gender data.
     global $db;
-    $queryGenders = 'SELECT genders.gender, genders.genderID, COUNT(composers.composerID) AS composers_in_gender
+    $queryGenders = 'SELECT genders.gender, genders.genderid, COUNT(composers.composerid) AS composers_in_gender
                 FROM genders
-                LEFT JOIN composers ON composers.genderID = genders.genderID
-                GROUP BY genders.genderID, genders.gender';
+                LEFT JOIN composers ON composers.genderid = genders.genderid
+                GROUP BY genders.genderid, genders.gender';
     $statement = $db->prepare($queryGenders);
     $statement->execute();
     $genders = $statement->fetchAll();
@@ -34,11 +34,11 @@ function getGenders() {
 
 function getRaces() {
     global $db;
-    $queryRaces = 'SELECT race.race, race.raceID, COUNT(composers.composerID) AS composers_in_race
+    $queryRaces = 'SELECT race.race, race.raceid, COUNT(composers.composerid) AS composers_in_race
                 FROM race
-                LEFT JOIN composers ON composers.raceID = race.raceID
-                LEFT JOIN composers_by_race ON composers.raceID = composers_by_race.raceID
-                GROUP BY race.raceID, race.race';
+                LEFT JOIN composers ON composers.raceid = race.raceid
+                LEFT JOIN composers_by_race ON composers.raceid = composers_by_race.raceid
+                GROUP BY race.raceid, race.race';
     $statement = $db->prepare($queryRaces);
     $statement->execute();
     $races = $statement->fetchAll();
@@ -49,9 +49,9 @@ function getRaces() {
 function getSeasons() {
     // Get all seasons.
     global $db;
-    $queryAllSeasons = 'SELECT DISTINCT seasons.seasonID, seasons.liturgicalSeason
+    $queryAllSeasons = 'SELECT DISTINCT seasons.seasonid, seasons.liturgicalseason
                         FROM seasons
-                        ORDER BY seasons.seasonID';
+                        ORDER BY seasons.seasonid';
     $statement = $db->prepare($queryAllSeasons);
     $statement->execute();
     $seasons = $statement->fetchAll();
@@ -62,10 +62,10 @@ function getSeasons() {
 function getTypes() {
     // Get all anthem types.
     global $db;
-    $queryAllTypes = 'SELECT DISTINCT types.typeID, types.anthemType
+    $queryAllTypes = 'SELECT DISTINCT types.typeid, types.anthemtype
                       FROM types
-                      INNER JOIN anthems on types.typeID = anthems.typeID
-                      ORDER BY types.typeID';
+                      INNER JOIN anthems on types.typeid = anthems.typeid
+                      ORDER BY types.typeid';
     $statement = $db->prepare($queryAllTypes);
     $statement->execute();
     $types = $statement->fetchAll();
@@ -76,10 +76,10 @@ function getTypes() {
 function getVoicings() {
     // Get all anthem voicings.
     global $db;
-    $queryAllVoicings = 'SELECT DISTINCT voicing.voicingID, voicing.voicing
+    $queryAllVoicings = 'SELECT DISTINCT voicing.voicingid, voicing.voicing
                          FROM voicing
-                         INNER JOIN anthems ON voicing.voicingID = anthems.voicingID
-                         ORDER BY voicing.voicingID';
+                         INNER JOIN anthems ON voicing.voicingid = anthems.voicingid
+                         ORDER BY voicing.voicingid';
     $statement1 = $db->prepare($queryAllVoicings);
     $statement1->execute();
     $voicings = $statement1->fetchAll();
@@ -101,81 +101,81 @@ function getAnthemsByMulti() {
 
     // Get anthems for selected search parameters.
     $queryAnthems = 'SELECT DISTINCT
-                        anthems.anthemID,
+                        anthems.anthemid,
                         anthems.title,
-                        anthems.typeID,
-                        anthems.composerID,
-                        anthems.voicingID,
-                        anthems.publisherID,
+                        anthems.typeid,
+                        anthems.composerid,
+                        anthems.voicingid,
+                        anthems.publisherid,
                         anthems.instrument,
                         anthems.solos,
-                        anthems.languageID,
-                        anthems.textID,
-                        anthems.scoreLink,
+                        anthems.languageid,
+                        anthems.textid,
+                        anthems.scorelink,
                         anthems.difficulty,
                         anthems.duration,
-                        anthems.recordingLink,
+                        anthems.recordinglink,
                         anthems.notes,
 
-                        anthems_by_season.anthemID,
-                        anthems_by_season.seasonID,
+                        anthems_by_season.anthemid,
+                        anthems_by_season.seasonid,
 
-                        composers.composerID,
-                        composers.firstName,
-                        composers.lastName,
+                        composers.composerid,
+                        composers.firstname,
+                        composers.lastname,
                         composers.datebirth,
                         composers.datedeath,
                         composers.country,
-                        composers.genderID,
-                        composers.raceID,
+                        composers.genderid,
+                        composers.raceid,
                         composers.website,
                         composers.queer,
                         composers.disabled,
                         composers.notes,
 
-                        genders.genderID,
+                        genders.genderid,
                         genders.gender,
 
-                        languages.languageID,
+                        languages.languageid,
                         languages.languagename,
 
-                        publisher.publisherID,
+                        publisher.publisherid,
                         publisher.publishername,
                         publisher.website,
 
-                        race.raceID,
+                        race.raceid,
                         race.race,
 
-                        seasons.seasonID,
+                        seasons.seasonid,
                         seasons.liturgicalseason,
 
-                        types.typeID,
+                        types.typeid,
                         types.anthemtype,
 
-                        voicing.voicingID,
+                        voicing.voicingid,
                         voicing.voicing
                     
                     FROM anthems
-                    JOIN composers ON anthems.composerID = composers.composerID
-                    LEFT JOIN anthems_by_season ON anthems.anthemID = anthems_by_season.anthemID
-                    LEFT JOIN composers_by_race ON composers.raceID = composers_by_race.raceID
-                    LEFT JOIN genders ON composers.genderID = genders.genderID
-                    LEFT JOIN languages ON anthems.languageID = languages.languageID
-                    LEFT JOIN publisher ON anthems.publisherID = publisher.publisherID
-                    LEFT JOIN race ON composers_by_race.raceID = race.raceID
-                    LEFT JOIN seasons on anthems_by_season.seasonID = seasons.seasonID
-                    LEFT JOIN types ON anthems.typeID = types.typeID
-                    LEFT JOIN voicing ON anthems.voicingID = voicing.voicingID
+                    JOIN composers ON anthems.composerid = composers.composerid
+                    LEFT JOIN anthems_by_season ON anthems.anthemid = anthems_by_season.anthemid
+                    LEFT JOIN composers_by_race ON composers.raceid = composers_by_race.raceid
+                    LEFT JOIN genders ON composers.genderid = genders.genderid
+                    LEFT JOIN languages ON anthems.languageid = languages.languageid
+                    LEFT JOIN publisher ON anthems.publisherid = publisher.publisherid
+                    LEFT JOIN race ON composers_by_race.raceid = race.raceid
+                    LEFT JOIN seasons on anthems_by_season.seasonid = seasons.seasonid
+                    LEFT JOIN types ON anthems.typeid = types.typeid
+                    LEFT JOIN voicing ON anthems.voicingid = voicing.voicingid
                     WHERE 1=1';
 
     if (!empty($composer)) {
-        $queryAnthems .= ' AND composers.lastName LIKE :composer';
+        $queryAnthems .= ' AND composers.lastname LIKE :composer';
     }
     if ($race_id) {
-        $queryAnthems .= ' AND composers.raceID = :race_id';
+        $queryAnthems .= ' AND composers.raceid = :race_id';
     }
     if ($gender_id) {
-        $queryAnthems .= ' AND composers.genderID = :gender_id';
+        $queryAnthems .= ' AND composers.genderid = :gender_id';
     }
     if ($queer) {
         $queryAnthems .= ' AND composers.queer = 1';
@@ -184,16 +184,16 @@ function getAnthemsByMulti() {
         $queryAnthems .= ' AND composers.disabled = 1';
     }
     if ($voicing_id) {
-        $queryAnthems .= ' AND anthems.voicingID = :voicing_id';
+        $queryAnthems .= ' AND anthems.voicingid = :voicing_id';
     }
     if ($season_id) {
-        $queryAnthems .= ' AND anthems_by_season.seasonID = :season_id';
+        $queryAnthems .= ' AND anthems_by_season.seasonid = :season_id';
     }
     if ($type_id) {
-        $queryAnthems .= ' AND anthems.typeID = :type_id';
+        $queryAnthems .= ' AND anthems.typeid = :type_id';
     }
 
-    $queryAnthems .= ' ORDER BY composers.lastName';
+    $queryAnthems .= ' ORDER BY composers.lastname';
      
     $statement = $db->prepare($queryAnthems);
 
@@ -250,7 +250,7 @@ function displayComposerFilters() {
     echo '<div class="column2"><select name="race_id" id="race_id" class="search">';
     echo '<option value="">-- Select race: --</option>';
     foreach ($races as $race) {
-        echo '<option value="' . $race['raceID'] . '">' . 
+        echo '<option value="' . $race['raceid'] . '">' . 
             htmlspecialchars($race['race']) . '</option>';
     }
     echo '</select></div>';
@@ -260,7 +260,7 @@ function displayComposerFilters() {
     echo '<div class="column2"><select name="gender_id" id="gender_id">';
     echo '<option value="">-- Select gender: --</option>';
     foreach ($genders as $gender) {
-        echo '<option value="' . $gender['genderID'] . '">' . 
+        echo '<option value="' . $gender['genderid'] . '">' . 
             htmlspecialchars($gender['gender']) . '</option>';
     }
     echo '</select></div>';
@@ -279,7 +279,7 @@ function displayVoicingFilters() {
     echo '<div class="column2"><select name="voicing_id" id="voicing_id" class="search">';
     echo '<option value="">-- Select voicing: --</option>';
     foreach ($voicings as $voicing) {
-        echo '<option value="' . $voicing['voicingID'] . '">' . 
+        echo '<option value="' . $voicing['voicingid'] . '">' . 
             htmlspecialchars($voicing['voicing']) . '</option>';
     }
     echo '</select></div>';
@@ -292,7 +292,7 @@ function displaySeasonFilters() {
     echo '<div class="column2"><select name="season_id" id="season_id" class="search">';
     echo '<option value="">-- Select season: --</option>';
     foreach ($seasons as $season) {
-        echo '<option value="' . $season['seasonID'] . '">' . 
+        echo '<option value="' . $season['seasonid'] . '">' . 
             htmlspecialchars($season['liturgicalseason']) . '</option>';
     }
     echo '</select></div>';
@@ -305,7 +305,7 @@ function displayTypeFilters() {
     echo '<div class="column2"><select name="type_id" id="type_id" class="search">';
     echo '<option value="">-- Select type: --</option>';
     foreach ($types as $type) {
-        echo '<option value="' . $type['typeID'] . '">' . 
+        echo '<option value="' . $type['typeid'] . '">' . 
             htmlspecialchars($type['anthemtype']) . '</option>';
     }
     echo '</select></div>';
